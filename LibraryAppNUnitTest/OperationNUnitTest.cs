@@ -29,15 +29,15 @@ namespace LibraryApp
         [TestCase(3, ExpectedResult = false)]
         [TestCase(5, ExpectedResult = false)]
         [TestCase(7, ExpectedResult = false)]
-        public bool IsValuePair_InputNoPairNumber_ReturnFalse(int numberNoPair)
+        public bool IsEvenValue_InputOddNumber_ReturnFalse(int oddNumber)
         {
             Operation op = new();
 
-            return op.IsValuePair(numberNoPair);
+            return op.IsEvenValue(oddNumber);
 
-            //Assert.IsFalse(isPair);
+            //Assert.IsFalse(isEvenNumber);
             ////or
-            //Assert.That(isPair, Is.EqualTo(false));
+            //Assert.That(isEvenNumber, Is.EqualTo(false));
         }
 
         [Test]
@@ -45,15 +45,15 @@ namespace LibraryApp
         [TestCase(4)]
         [TestCase(20)]
         //[TestCase(12,10)]
-        public void IsValuePair_InputPairNumber_ReturnTrue(int numberPair)
+        public void IsEvenValue_InputEvenNumber_ReturnTrue(int evenNumber)
         {
             Operation op = new();
 
-            bool isPair = op.IsValuePair(numberPair);
+            bool isEvenNumber = op.IsEvenValue(evenNumber);
 
-            Assert.IsTrue(isPair);
+            Assert.IsTrue(isEvenNumber);
             //or
-            Assert.That(isPair, Is.EqualTo(true));
+            Assert.That(isEvenNumber, Is.EqualTo(true));
         }
 
         /* Nomenclatura del test:
@@ -67,7 +67,7 @@ namespace LibraryApp
         {
             // arrange - inicialiacion de los valores que ejecutan el test
             Operation op = new();
-            
+
             // act - Represanta la ejecucion de la operacion
             double result = op.SumDouble(dec1Test, dec2Test);
 
@@ -80,6 +80,42 @@ namespace LibraryApp
 
             // assert - evaluacion del resultado
             Assert.AreEqual(3.4, result, 0.1);
+        }
+
+        [Test]
+        public void GetListOddNumbers_InputMinMaxInterval_ReturnsListOddNumbers()
+        {
+            //arrange
+            Operation op = new();
+            List<int> oddNumbersEspects = new() { 5, 7, 9 };
+
+            //act
+            List<int> results = op.GetListOddNumbers(5, 10);
+
+            //assert
+            Assert.That(results, Is.EquivalentTo(oddNumbersEspects));
+            Assert.AreEqual(oddNumbersEspects, results);
+            
+            //Contains
+            Assert.That(results, Does.Contain(7));
+            //forma clasica
+            Assert.Contains(5, results);
+
+            //not empty
+            Assert.That(results, Is.Not.Empty);
+
+            // elements quantity
+            Assert.That(results.Count, Is.EqualTo(3));
+
+            //find elements
+            Assert.That(results, Has.No.Member(100));
+
+            // valid order by
+            Assert.That(results, Is.Ordered.Ascending);
+
+            // valores no duplicados
+            Assert.That(results, Is.Unique);
+
         }
 
 

@@ -28,12 +28,17 @@ namespace LibraryApp
             client.CreateFullName("Gold", "Roger");
 
             //assert
-            Assert.That(client.ClientName, Is.EqualTo("Gold Roger"));
-            Assert.AreEqual(client.ClientName, "Gold Roger");
-            Assert.That(client.ClientName, Does.Contain("Roger"));
-            Assert.That(client.ClientName, Does.Contain("roger").IgnoreCase);
-            Assert.That(client.ClientName, Does.StartWith("Gold"));
-            Assert.That(client.ClientName, Does.EndWith("Roger"));
+            // Show all errors
+            Assert.Multiple(() =>
+            {
+                Assert.That(client.ClientName, Is.EqualTo("Gold Roger"));
+                Assert.AreEqual(client.ClientName, "Gold Roger");
+                Assert.That(client.ClientName, Does.Contain("Roger"));
+                Assert.That(client.ClientName, Does.Contain("roger").IgnoreCase);
+                Assert.That(client.ClientName, Does.StartWith("Gold"));
+                Assert.That(client.ClientName, Does.EndWith("Roger"));
+            });
+
         }
 
         [Test]
@@ -44,6 +49,36 @@ namespace LibraryApp
 
             //assert
             Assert.IsNull(client.ClientName);
+        }
+
+        [Test]
+        public void DiscountEvaluation_DefaultClient_ReturnsIntervalDiscount()
+        {
+            int discount = client.Discount;
+
+            // verify interval range
+            Assert.That(discount, Is.InRange(5, 25));
+        }
+
+        [Test]
+        public void CreateFullName_InputFirstName_ReturnsNotNull()
+        {
+            client.CreateFullName("Gold", "");
+
+            Assert.IsNotNull(client.ClientName);
+            Assert.IsFalse(string.IsNullOrEmpty(client.ClientName));
+        }
+
+        [Test]
+        public void ClientName_InputFirstNameEmpty_ThrowException()
+        {
+            // verify ArgumentException message
+            var exceptionDetail = Assert.Throws<ArgumentException>(() => client.CreateFullName("", "Roger"));
+            Assert.AreEqual("FirstName is null or empty", exceptionDetail.Message);
+            Assert.That(() => client.CreateFullName("", "Roger"), Throws.ArgumentException.With.Message.EqualTo("FirstName is null or empty"));
+
+            Assert.Throws<ArgumentException>(() => client.CreateFullName("", "Roger"));
+            Assert.That(() => client.CreateFullName("", "Roger"), Throws.ArgumentException);
         }
     }
 }

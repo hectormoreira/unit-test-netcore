@@ -10,6 +10,7 @@ namespace LibraryApp
     {
         public string ClientName { get; set; }
         public int Discount = 10;
+        public int TotalOrder { get; set; }
 
 
         public string CreateFullName(string firstname, string lastname)
@@ -23,5 +24,32 @@ namespace LibraryApp
             ClientName = $"{firstname} {lastname}";
             return ClientName;
         }
+
+        public TypeCLient GetClientDetail()
+        {
+            if (TotalOrder < 500)
+            {
+                return new BasicCLient();
+            }
+            else
+            {
+                return new PremiumClient();
+            }
+        }
+    }
+
+    public class TypeCLient
+    {
+
+    }
+
+    public class BasicCLient : TypeCLient
+    {
+
+    }
+
+    public class PremiumClient : TypeCLient
+    {
+
     }
 }

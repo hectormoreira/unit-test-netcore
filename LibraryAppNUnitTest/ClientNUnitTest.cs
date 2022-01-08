@@ -80,5 +80,26 @@ namespace LibraryApp
             Assert.Throws<ArgumentException>(() => client.CreateFullName("", "Roger"));
             Assert.That(() => client.CreateFullName("", "Roger"), Throws.ArgumentException);
         }
+
+        [Test]
+        public void GetClientDetail_CreateClientWithMinor500TotalOrder_ReturnsBasicClient()
+        {
+            client.TotalOrder = 400;
+            var result = client.GetClientDetail();
+
+            Assert.That(result, Is.TypeOf<BasicCLient>());
+        }
+
+
+        [Test]
+        public void GetClientDetail_CreateClientWithMore500TotalOrder_ReturnsBasicClient()
+        {
+            client.TotalOrder = 700;
+            var result = client.GetClientDetail();
+
+            Assert.That(result, Is.TypeOf<PremiumClient>());
+        }
+
+
     }
 }

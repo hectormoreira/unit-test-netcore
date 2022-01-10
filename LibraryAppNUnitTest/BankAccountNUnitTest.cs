@@ -43,5 +43,44 @@ namespace LibraryApp
             Assert.That(bankAccount.GetBalance, Is.EqualTo(100));
         }
 
+        [Test]
+        [TestCase(200, 100)]
+        [TestCase(200, 150)]
+        public void Withdrawal_100Balance200_ReturnsTrue(int balance, int withdrawal)
+        {
+            var loggerMock = new Mock<ILoggerGeneral>();
+            //simulation operation
+            loggerMock.Setup(u => u.LogDatabase(It.IsAny<string>())).Returns(true);
+            loggerMock.Setup(u => u.LogBalanceAfterWithdrawal(It.Is<int>(x => x > 0))).Returns(true);
+
+
+            BankAccount bankAccount = new BankAccount(loggerMock.Object);
+            bankAccount.Deposit(balance);
+
+            var result = bankAccount.Withdrawal(withdrawal);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        [TestCase(200, 300)]
+        public void Withdrawal_300Balance200_ReturnsFalse(int balance, int withdrawal)
+        {
+            var loggerMock = new Mock<ILoggerGeneral>();
+            //simulation operation
+            //loggerMock.Setup(u => u.LogBalanceAfterWithdrawal(It.Is<int>(x => x < 0))).Returns(false);
+
+            //by range
+            loggerMock.Setup(u => u.LogBalanceAfterWithdrawal(It.IsInRange<int>(int.MinValue, -1, Moq.Range.Inclusive))).Returns(false);
+
+
+            BankAccount bankAccount = new BankAccount(loggerMock.Object);
+            bankAccount.Deposit(balance);
+
+            var result = bankAccount.Withdrawal(withdrawal);
+
+            Assert.IsFalse(result);
+        }
+
     }
 }

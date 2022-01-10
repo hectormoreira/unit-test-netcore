@@ -8,35 +8,36 @@ namespace LibraryApp
 {
     public class BankAccount
     {
-        public int Balance { get; set; }
+        public int balance { get; set; }
         private readonly ILoggerGeneral _loggerGeneral;
 
         public BankAccount(ILoggerGeneral loggerGeneral)
         {
-            Balance = 0;
+            balance = 0;
             _loggerGeneral = loggerGeneral;
         }
 
         public bool Deposit(int amount)
-        {            
-            Balance = +amount;
+        {
+            balance = +amount;
             _loggerGeneral.Message("Está depositando la cantidad de: " + amount);
             return true;
         }
 
         public bool Withdrawal(int amount)
         {
-            if (amount <= Balance)
+            if (amount <= balance)
             {
-                Balance -= amount;
-                return true;
+                _loggerGeneral.LogDatabase("Withdrawal Amount: " + amount.ToString());
+                balance -= amount;
+                return _loggerGeneral.LogBalanceAfterWithdrawal(balance);
             }
-            return false;
+            return _loggerGeneral.LogBalanceAfterWithdrawal(balance - amount);
         }
 
         public int GetBalance()
         {
-            return Balance;
+            return balance;
         }
     }
 }

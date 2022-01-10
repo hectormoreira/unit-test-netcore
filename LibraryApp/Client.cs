@@ -6,12 +6,30 @@ using System.Threading.Tasks;
 
 namespace LibraryApp
 {
-    public class Client
+    public interface IClient
+    {
+        string ClientName { get; set; }
+        bool IsPremium { get; set; }
+        int TotalOrder { get; set; }
+        int Discount { get; set; }
+
+        string CreateFullName(string firstname, string lastname);
+        TypeCLient GetClientDetail();
+    }
+
+    public class Client : IClient
     {
         public string ClientName { get; set; }
-        public int Discount = 10;
         public int TotalOrder { get; set; }
+        public bool IsPremium { get; set; }
 
+        public int Discount { get; set; }
+
+        public Client()
+        {
+            IsPremium = false;
+            Discount = 10;
+        }
 
         public string CreateFullName(string firstname, string lastname)
         {

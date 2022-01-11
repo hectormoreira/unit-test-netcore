@@ -107,5 +107,34 @@ namespace LibraryApp
             Assert.IsTrue(result);
         }
 
+        [Test]
+        public void BankAccountLoggerGeneral_LogMockingObjectRef_ReturnTrue()
+        {
+            var loggerGeneralMock = new Mock<ILoggerGeneral>();
+
+            Client client = new();
+            Client clientNoUse = new();
+
+            loggerGeneralMock.Setup(u => u.MessageWithObjectReferenceReturnBoolean(ref client)).Returns(true);
+
+            Assert.IsTrue(loggerGeneralMock.Object.MessageWithObjectReferenceReturnBoolean(ref client));
+
+            Assert.IsFalse(loggerGeneralMock.Object.MessageWithObjectReferenceReturnBoolean(ref clientNoUse));
+        }
+
+        [Test]
+        public void BankAccountLoggerGeneral_LogMockingPropertiesPriorityType_ReturnsTrue()
+        {
+            var loggerGeneralMock = new Mock<ILoggerGeneral>();
+            loggerGeneralMock.SetupAllProperties();
+
+            loggerGeneralMock.Setup(u => u.TypeLog).Returns("warning");
+            loggerGeneralMock.Setup(u => u.PriorityLog).Returns(10);
+            
+            loggerGeneralMock.Object.PriorityLog = 100;
+
+            Assert.That(loggerGeneralMock.Object.TypeLog, Is.EqualTo("warning"));
+            Assert.That(loggerGeneralMock.Object.PriorityLog, Is.EqualTo(100));
+        }
     }
 }

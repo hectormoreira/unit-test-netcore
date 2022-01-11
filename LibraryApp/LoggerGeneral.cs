@@ -8,15 +8,22 @@ namespace LibraryApp
 {
     public interface ILoggerGeneral
     {
+        public int PriorityLog { get; set; }
+        public string TypeLog { get; set; }
+
         void Message(string message);
         bool LogDatabase(string message);
         bool LogBalanceAfterWithdrawal(int balance);
         string MessageWithReturnString(string message);
         bool MessageWithOutParameterReturnBoolean(string str, out string outputStr);
+        bool MessageWithObjectReferenceReturnBoolean(ref Client client);
     }
 
     public class LoggerGeneral : ILoggerGeneral
     {
+        public int PriorityLog { get; set; }
+        public string TypeLog { get; set; }
+
         public bool LogBalanceAfterWithdrawal(int balance)
         {
             if (balance >= 0)
@@ -39,6 +46,11 @@ namespace LibraryApp
             Console.WriteLine(message);
         }
 
+        public bool MessageWithObjectReferenceReturnBoolean(ref Client client)
+        {
+            return true;
+        }
+
         public bool MessageWithOutParameterReturnBoolean(string str, out string outputStr)
         {
             outputStr = "Hello " + str;
@@ -54,6 +66,9 @@ namespace LibraryApp
 
     public class LoggerFake : ILoggerGeneral
     {
+        public int PriorityLog { get; set; }
+        public string TypeLog { get; set; }
+
         public bool LogBalanceAfterWithdrawal(int balance)
         {
             return false;
@@ -67,6 +82,11 @@ namespace LibraryApp
         public void Message(string message)
         {
 
+        }
+
+        public bool MessageWithObjectReferenceReturnBoolean(ref Client client)
+        {
+            return true;
         }
 
         public bool MessageWithOutParameterReturnBoolean(string str, out string outputStr)

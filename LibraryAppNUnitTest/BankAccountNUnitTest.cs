@@ -130,11 +130,22 @@ namespace LibraryApp
 
             loggerGeneralMock.Setup(u => u.TypeLog).Returns("warning");
             loggerGeneralMock.Setup(u => u.PriorityLog).Returns(10);
-            
+
             loggerGeneralMock.Object.PriorityLog = 100;
 
             Assert.That(loggerGeneralMock.Object.TypeLog, Is.EqualTo("warning"));
             Assert.That(loggerGeneralMock.Object.PriorityLog, Is.EqualTo(100));
+
+            // Callbacks
+            string tempText = "Gold ";
+            loggerGeneralMock.Setup(u => u.LogDatabase(It.IsAny<string>()))
+                .Returns(true)
+                .Callback((string parameter) => tempText += parameter );
+
+
+            loggerGeneralMock.Object.LogDatabase("Roger"); // Gold Roger
+
+            Assert.That(tempText, Is.EqualTo("Gold Roger"));
         }
     }
 }

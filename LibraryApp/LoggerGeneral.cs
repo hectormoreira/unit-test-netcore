@@ -11,6 +11,8 @@ namespace LibraryApp
         void Message(string message);
         bool LogDatabase(string message);
         bool LogBalanceAfterWithdrawal(int balance);
+        string MessageWithReturnString(string message);
+        bool MessageWithOutParameterReturnBoolean(string str, out string outputStr);
     }
 
     public class LoggerGeneral : ILoggerGeneral
@@ -36,6 +38,18 @@ namespace LibraryApp
         {
             Console.WriteLine(message);
         }
+
+        public bool MessageWithOutParameterReturnBoolean(string str, out string outputStr)
+        {
+            outputStr = "Hello " + str;
+            return true;
+        }
+
+        public string MessageWithReturnString(string message)
+        {
+            Console.WriteLine(message);
+            return message.ToLower();
+        }
     }
 
     public class LoggerFake : ILoggerGeneral
@@ -53,6 +67,17 @@ namespace LibraryApp
         public void Message(string message)
         {
 
+        }
+
+        public bool MessageWithOutParameterReturnBoolean(string str, out string outputStr)
+        {
+            outputStr = "";
+            return true;
+        }
+
+        public string MessageWithReturnString(string message)
+        {
+            return message;
         }
     }
 }

@@ -82,5 +82,30 @@ namespace LibraryApp
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void BankAccountLoggerGeneral_LogMoccking_ReturnTrue()
+        {
+            var loggerGeneralMock = new Mock<ILoggerGeneral>();
+            string textTest = "hello world";
+            loggerGeneralMock.Setup(u => u.MessageWithReturnString(It.IsAny<string>())).Returns<string>(str => str.ToLower());
+
+            var result = loggerGeneralMock.Object.MessageWithReturnString("Hello World");
+
+            Assert.That(result, Is.EqualTo(textTest));
+        }
+
+        [Test]
+        public void BankAccountLoggerGeneral_LogMockingOutput_ReturnTrue()
+        {
+            var loggerGeneral = new Mock<ILoggerGeneral>();
+            string textTest = "hello";
+            loggerGeneral.Setup(u => u.MessageWithOutParameterReturnBoolean(It.IsAny<string>(), out textTest)).Returns(true);
+
+            string parameterOut = "";
+            var result = loggerGeneral.Object.MessageWithOutParameterReturnBoolean("Gold", out parameterOut);
+
+            Assert.IsTrue(result);
+        }
+
     }
 }

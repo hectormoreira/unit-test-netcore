@@ -19,8 +19,14 @@ namespace LibraryApp
 
         public bool Deposit(int amount)
         {
-            balance = +amount;
-            _loggerGeneral.Message("Está depositando la cantidad de: " + amount);
+            _loggerGeneral.Message("You are deposit: " + amount);
+            _loggerGeneral.Message("This is another text");
+            _loggerGeneral.Message("This is another text 2");
+            _loggerGeneral.PriorityLog = 100;
+
+            var priority = _loggerGeneral.PriorityLog;
+
+            balance = +amount;            
             return true;
         }
 

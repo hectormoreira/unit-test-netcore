@@ -140,12 +140,30 @@ namespace LibraryApp
             string tempText = "Gold ";
             loggerGeneralMock.Setup(u => u.LogDatabase(It.IsAny<string>()))
                 .Returns(true)
-                .Callback((string parameter) => tempText += parameter );
+                .Callback((string parameter) => tempText += parameter);
 
 
             loggerGeneralMock.Object.LogDatabase("Roger"); // Gold Roger
 
             Assert.That(tempText, Is.EqualTo("Gold Roger"));
+        }
+
+        [Test]
+        public void BankAccountLoggerGeneral_VerifyExample()
+        {
+            var loggerGeneralMock = new Mock<ILoggerGeneral>();
+
+            BankAccount bankAccount = new BankAccount(loggerGeneralMock.Object);
+            bankAccount.Deposit(100);
+
+            Assert.That(bankAccount.GetBalance(), Is.EqualTo(100));
+
+            // verify how many times .message methods is called
+            loggerGeneralMock.Verify(u => u.Message(It.IsAny<string>()), Times.Exactly(3));
+            loggerGeneralMock.Verify(u => u.Message("This is another text"), Times.AtLeastOnce);
+
+            loggerGeneralMock.VerifySet(u => u.PriorityLog = 100, Times.Once());
+            loggerGeneralMock.VerifyGet(u => u.PriorityLog, Times.Once());
         }
     }
 }

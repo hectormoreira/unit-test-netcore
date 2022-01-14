@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApp", "LibraryApp\LibraryApp.csproj", "{6CA907B2-6268-4841-996F-F0A0116BC5EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAppMSTest", "LibraryAppMSTest\LibraryAppMSTest.csproj", "{A7662419-AD48-4216-91E3-2BBA6A71C374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAppMSTest", "LibraryAppMSTest\LibraryAppMSTest.csproj", "{A7662419-AD48-4216-91E3-2BBA6A71C374}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAppNUnitTest", "LibraryAppNUnitTest\LibraryAppNUnitTest.csproj", "{839F2EB9-C855-478F-AE68-19069535B65F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAppNUnitTest", "LibraryAppNUnitTest\LibraryAppNUnitTest.csproj", "{839F2EB9-C855-478F-AE68-19069535B65F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAppXUnitTest", "LibraryAppXUnitTest\LibraryAppXUnitTest.csproj", "{27EECA97-63E5-4141-83F9-763A65EB565E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{839F2EB9-C855-478F-AE68-19069535B65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{839F2EB9-C855-478F-AE68-19069535B65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{839F2EB9-C855-478F-AE68-19069535B65F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27EECA97-63E5-4141-83F9-763A65EB565E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27EECA97-63E5-4141-83F9-763A65EB565E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27EECA97-63E5-4141-83F9-763A65EB565E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27EECA97-63E5-4141-83F9-763A65EB565E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
